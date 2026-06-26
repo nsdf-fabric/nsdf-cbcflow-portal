@@ -50,7 +50,7 @@ To run a special command:
 sudo docker compose --env-file ../cbcflow-portal/.env run web /bin/bash
 ```
 
-Test  http://chpc1.nationalsciencedatafabric.org:5077  (resolves to `155.101.6.68`)
+Test  http://chpc1.nationalsciencedatafabric.org:5077  
 
 
 ## FK graph diagram
