@@ -15,11 +15,11 @@ services:
       APP_USERNAME: ${APP_USERNAME}
       APP_PASSWORD: ${APP_PASSWORD}
       APP_SECRET_KEY: ${APP_SECRET_KEY}
-      DB_HOST: localhost
-      DB_PORT: 5432
-      DB_NAME: cbcflow
-      DB_USER: cbcflow
-      DB_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     command: flask run --debug --reload --host=0.0.0.0 -p 5077
 
 

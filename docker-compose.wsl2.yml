@@ -6,4 +6,4 @@ services:
     ports:
       - "5077:5077"
     environment:
-      DB_HOST: host.docker.internal
+      POSTGRES_HOST: host.docker.internal

@@ -5,7 +5,7 @@ hardcoded to specific table/model names, so it stays correct automatically:
 
     python3 build_fk_graph.py [output_basename]
 
-Requires the same DB_HOST/DB_PORT/DB_NAME/DB_USER/DB_PASSWORD env vars as
+Requires the same env vars as
 db.py (see its defaults). Needs the `dot` command (graphviz) on PATH to
 produce the PNG; otherwise it just writes the .dot file, which you can
 render elsewhere, e.g.:

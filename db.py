@@ -3,11 +3,11 @@ import datetime
 import psycopg2
 import psycopg2.extras
 
-DB_HOST = os.environ.get("DB_HOST", "localhost")
-DB_PORT = os.environ.get("DB_PORT", "5432")
-DB_NAME = os.environ.get("DB_NAME", "cbcflow")
-DB_USER = os.environ.get("DB_USER", "cbcflow")
-DB_PASSWORD = os.environ.get("DB_PASSWORD", "cbcflow")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST", "localhost")
+POSTGRES_PORT = os.environ.get("POSTGRES_PORT", "5432")
+POSTGRES_DB = os.environ.get("POSTGRES_DB", "cbcflow")
+POSTGRES_USER = os.environ.get("POSTGRES_USER", "cbcflow")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "cbcflow")
 
 ROOT_TABLE = "registry_superevent"
 
@@ -23,7 +23,7 @@ _fk_graph_cache = None
 
 def GetConnection():
 	return psycopg2.connect(
-		host=DB_HOST, port=DB_PORT, dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD
+		host=POSTGRES_HOST, port=POSTGRES_PORT, dbname=POSTGRES_DB, user=POSTGRES_USER, password=POSTGRES_PASSWORD
 	)
 
 
