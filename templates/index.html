@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Superevents {% endblock %}</h1>
+
+
+<table>
+    <th>Sname</th>
+    <th>Schema</th>
+    <th>Created</th>
+    <th>Updated</th>
+    {% for event in events %}
+    <tr>
+        <td><a href="/event/{{ event['sname'] }}">{{ event['sname'] }}</a>
+        <td>{{ event['schema_version'] }}</td>
+        <td>{{ event['created_at'] }}</td>
+        <td>{{ event['updated_at'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

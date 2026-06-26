@@ -1,0 +1,10 @@
+h5py
+matplotlib
+scipy
+gwpy
+gwosc
+bokeh==3.3.4 
+panel==1.3.8 
+jupyter_bokeh
+ipywidgets_bokeh
+jupyterlab==3.6.6 

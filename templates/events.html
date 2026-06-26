@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} List Events {% endblock %}</h1>
+<table border="1">
+  <tr>
+    <th>#</th>
+    <th>Event</th>
+  </tr>
+  {% for event in events %}
+  <tr>
+    <td>{{ loop.index0 }} </td>
+    <td>
+      <a href="/event/{{ event }}">{{ event }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

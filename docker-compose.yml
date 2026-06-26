@@ -1,0 +1,25 @@
+---
+services:
+  web:
+    image: cbcflow2
+    build: .
+    restart: unless-stopped
+    ports:
+      - 5077:5077
+    # this is neeed for CHPC where port mapping is not working well
+    network_mode: "host"
+    # Secrets are read from a gitignored .env file (see .env.example).
+    environment:
+      FLASK_APP: app
+      FLASK_ENV: development
+      APP_USERNAME: ${APP_USERNAME}
+      APP_PASSWORD: ${APP_PASSWORD}
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: cbcflow
+      DB_USER: cbcflow
+      DB_PASSWORD: ${DB_PASSWORD}
+    command: flask run --debug --reload --host=0.0.0.0 -p 5077
+
+

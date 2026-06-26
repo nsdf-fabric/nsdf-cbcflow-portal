@@ -1,0 +1,9 @@
+# Local override for WSL2/local dev — removes host network mode so port mapping works.
+# This file is auto-merged by docker compose; do NOT deploy this to CHPC.
+services:
+  web:
+    network_mode: bridge
+    ports:
+      - "5077:5077"
+    environment:
+      DB_HOST: host.docker.internal

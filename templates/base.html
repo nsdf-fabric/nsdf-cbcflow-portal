@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - Flow</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <style>
+        .message {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f3f3f3
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 5px;
+            color: #970020;
+            background-color: #ffd5de;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+
+        <div style="width:100%;"><img src="/static/header.png" />
+
+        <div style="text-align: right;width:100%;">
+            {% if 'username' in session %}
+                Hello {{ session.get('username') }} &nbsp;&nbsp;|
+                <a href="/">Home</a> &nbsp;&nbsp;|
+                <a href="/event">Events</a>&nbsp;&nbsp;
+                <a href="/logout">Logout</a>&nbsp;&nbsp;
+            {% endif %}
+        </div>
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+        {% endfor %}
+
+        <div style="width:100%;">
+            {% block content %} {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <img src="https://ci-compass.org/assets/567429/nsf_official_logo.png" width="40px" />
+        This project is supported by the National Science Foundation Office of Advanced Cyberinfrastructure in the
+        Directorate for Computer Information Science under Grant #2127548.
+    </footer>
+
+
+</body>
+
+</html>

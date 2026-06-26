@@ -1,0 +1,6 @@
+*.h5
+*.tar.gz
+**/.ipynb_checkpoints/
+**/.venv/
+db.json
+.env

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<h1>{% block title %} Event [{{ Sname }}] {% endblock %}</h1>
+
+<style>
+  .tree-view {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.95rem;
+    color: #2c3e50;
+  }
+  .tree-view details {
+    margin: 0.4em 0;
+    border: 1px solid #e3e6ea;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .tree-view summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.5em 0.75em;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+  }
+  .tree-view summary:hover { background: #f4f7fb; }
+  .tree-view summary::-webkit-details-marker { display: none; }
+  .tree-view summary::before {
+    content: "\25B8";
+    display: inline-block;
+    margin-right: 0.55em;
+    color: #8a96a3;
+    transition: transform 0.15s ease;
+  }
+  .tree-view details[open] > summary::before { transform: rotate(90deg); }
+  .tree-view .count-badge {
+    background: #eef2f7;
+    color: #5b6b7c;
+    border-radius: 999px;
+    padding: 0.1em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-left: 0.55em;
+  }
+  .tree-view .indent {
+    margin: 0 0 0.5em 1.4em;
+    padding: 0.4em 0.9em;
+    border-left: 2px solid #e3e6ea;
+  }
+  .tree-view .field {
+    padding: 0.2em 0;
+    line-height: 1.4;
+  }
+  .tree-view .field b {
+    color: #5b6b7c;
+    font-weight: 600;
+    margin-right: 0.4em;
+  }
+  .tree-view > .indent {
+    margin: 0;
+    border-left: none;
+    padding: 0;
+  }
+  /* shrink progressively from the 2nd nesting level down (1st level - the
+     top sections like catalogtrackingdata - stays full size) */
+  .tree-view .indent .indent .indent {
+    font-size: 0.9em;
+  }
+  .tree-view table.kv {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.2em 0 0.6em 0;
+    border: none;
+  }
+  .tree-view table.kv th,
+  .tree-view table.kv td {
+    border: none;
+    padding: 0.4em 0.7em;
+    vertical-align: top;
+  }
+  .tree-view table.kv tr:nth-child(even) {
+    background: #f7f9fb;
+  }
+  .tree-view table.kv td.key {
+    color: #5b6b7c;
+    font-weight: 600;
+    white-space: nowrap;
+    width: 1%;
+  }
+  .tree-view table.kv.transposed th {
+    text-align: left;
+    color: #8a96a3;
+    font-weight: 600;
+    font-size: 0.85em;
+  }
+  .tree-view table.kv.transposed td {
+    white-space: nowrap;
+  }
+  .tree-controls {
+    margin: 0.5em 0 1em 0;
+  }
+  .tree-controls button {
+    margin-right: 0.5em;
+  }
+</style>
+<div class="tree-controls">
+  <button type="button" id="expand-all">Expand All</button>
+  <button type="button" id="collapse-all">Collapse All</button>
+</div>
+<div class="tree-view">
+{{ html_view |safe }}
+</div>
+<script>
+  document.getElementById('expand-all').addEventListener('click', () => {
+    document.querySelectorAll('.tree-view details').forEach(d => d.open = true);
+  });
+  document.getElementById('collapse-all').addEventListener('click', () => {
+    document.querySelectorAll('.tree-view details').forEach(d => d.open = false);
+  });
+</script>
+
+<!-- https://github.com/josdejong/svelte-jsoneditor?tab=readme-ov-file -->
+<h3>Raw JSON</h3>
+<div id="jsoneditor" style="height:60vh;"></div>
+
+
+<script type="module">
+  import { JSONEditor } from 'https://cdn.jsdelivr.net/npm/vanilla-jsoneditor/standalone.js'
+
+  var response = await fetch("/json/{{ Sname }}");
+  var value = await response.json();
+  console.log(value);
+
+  var content = {
+    json: value ,
+    text: undefined,
+  };
+
+  var target=document.getElementById('jsoneditor');
+  console.log(target);
+  var editor = new JSONEditor({
+    target: target,
+    props: {
+      content,
+      onChange: (updatedContent, previousContent, { contentErrors, patchResult }) => {
+        console.log('onChange', { updatedContent, previousContent, contentErrors, patchResult })
+      },
+    }
+  });
+</script>
+
+
+<h2>Superevent:</h2>
+<table>
+  <tr>
+    <th>Created</th>
+    <th>Updated</th>
+  </tr>
+  <tr>
+    <td>{{ created_at }}</td>
+    <td>{{ updated_at }}</td>
+  </tr>
+</table>
+
+
+{% endblock %}
